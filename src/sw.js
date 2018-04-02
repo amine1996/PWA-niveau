@@ -3,7 +3,7 @@ importScripts('/js/workbox/workbox-sw.js');
 if (workbox) 
 {
   workbox.setConfig({
-    modulePathPrefix: '/js/workbox-v3.0.1/'
+    modulePathPrefix: '/js/workbox/'
   });
 
   console.log('Yay! Workbox is loaded');
