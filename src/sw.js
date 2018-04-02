@@ -1,9 +1,9 @@
-importScripts('/js/workbox/workbox-sw.js');
+importScripts('/js/static/workbox/workbox-sw.js');
 
 if (workbox) 
 {
   workbox.setConfig({
-    modulePathPrefix: '/js/workbox/'
+    modulePathPrefix: '/js/static/workbox/'
   });
 
   console.log('Yay! Workbox is loaded');
