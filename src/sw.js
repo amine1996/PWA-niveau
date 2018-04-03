@@ -6,8 +6,10 @@ if (workbox)
     modulePathPrefix: '/js/static/workbox/'
   });
 
+  workbox.precaching.precacheAndRoute([]);
+
   workbox.routing.registerRoute(
-    new RegExp('js/sketch.js'),
+    new RegExp('/js/sketch.js'),
     workbox.strategies.networkFirst(
       {
         cacheName : 'sketch',
@@ -33,6 +35,4 @@ if (workbox)
       }
     )
   );
-
-  workbox.precaching.precacheAndRoute([]);
 } 

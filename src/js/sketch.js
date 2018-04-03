@@ -1,4 +1,8 @@
+//Last orientation (PORTRAIT or LANDSCAPE)
 var lastOrientation;
+
+//Last Y rotation
+var lastRotationY;
 
 function setup() 
 {
@@ -11,16 +15,24 @@ function setup()
   angleMode(DEGREES);
 
   lastOrientation = deviceOrientation;
+  lastRotationY = 0;
 }
 
 function draw() 
 {
   background(255,255,255);
 
-  if(rotationX != null && rotationY != null && rotationZ != null)
+  if(rotationY != null)
   {
-    fill(255,255,0);
-    ellipse(screen.width*map(cos(rotationZ),-1,1,0,1), screen.height/2, 80, 80);
+    fill(0,255,0);
+    ellipse(screen.width/2, screen.height*map(cos(lastRotationY),-1,1,0,1), 80, 80);
+
+    fill(255,0,0);
+    ellipse(screen.width*map(cos(lastRotationY+90),-1,1,0,1),screen.height/2, 80, 80);
+
+    //Not working, looking for a fluid movement and also faster as the difference is bigger
+    deltaRotation = abs(rotationY - lastRotationY) > 0.5 ? 0.5 : abs(rotationY - lastRotationY);
+    lastRotationY = rotationY - lastRotationY > 0 ? lastRotationY+deltaRotation : lastRotationY-deltaRotation;
   }
   else
   {
@@ -39,4 +51,4 @@ function resizeOnOrientationChange()
 
     lastOrientation = deviceOrientation;
   }
-}f
+}
