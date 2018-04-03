@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
   <!-- Set the viewport -->
@@ -7,6 +8,8 @@
 
   <!-- Set character encoding -->
   <meta charset="utf-8">
+
+  <meta name="theme-color" content="#FFFFFF">
 
   <!-- Set title -->
   <title>Short Name</title>
@@ -20,21 +23,25 @@
 </head>
 
 <body>
-  <header>
 
+  <div style="display:none">
+    <p>test</p>
+  </div>
+  
   <script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
           .then(registration => {
             console.log(`Service Worker registered! Scope: ${registration.scope}`);
           })
           .catch(err => {
             console.log(`Service Worker registration failed: ${err}`);
           });
-      });
+      });
     }
   </script>
 
 </body>
+
 </html>

@@ -7,6 +7,6 @@ module.exports = {
   "swSrc": "src/sw.js",
   "globIgnores": [
     "../workbox-config.js",
-    "./images/pwa-*"
+    "js/sketch.js"
   ]
 };

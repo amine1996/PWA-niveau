@@ -1,22 +1,42 @@
+var lastOrientation;
+
 function setup() 
 {
-    background(255,255,255);   
+  createCanvas(screen.width, screen.height);
+
+  if(deviceOrientation == LANDSCAPE)
+    resizeCanvas(screen.height, screen.width);
+
+  background(255,255,255);   
+  angleMode(DEGREES);
+
+  lastOrientation = deviceOrientation;
 }
 
 function draw() 
 {
   background(255,255,255);
-  ellipse(50, 50, 80, 80);
 
-  textSize(20);
   if(rotationX != null && rotationY != null && rotationZ != null)
   {
-    text(rotationX,10,30);
-    text(rotationY,10,50);
-    text(rotationZ,10,70);
+    fill(255,255,0);
+    ellipse(screen.width*map(cos(rotationZ),-1,1,0,1), screen.height/2, 80, 80);
   }
   else
   {
     text("No rotation found",10,30);
+  }
+}
+//Not used for the moment
+function resizeOnOrientationChange() 
+{
+  if(lastOrientation != deviceOrientation)
+  {
+    if(deviceOrientation == LANDSCAPE)
+      resizeCanvas(screen.height,screen.width);
+    else
+      resizeCanvas(screen.width,screen.height);
+
+    lastOrientation = deviceOrientation;
   }
 }

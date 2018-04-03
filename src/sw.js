@@ -6,17 +6,33 @@ if (workbox)
     modulePathPrefix: '/js/static/workbox/'
   });
 
-  console.log('Yay! Workbox is loaded');
+  workbox.routing.registerRoute(
+    new RegExp('js/sketch.js'),
+    workbox.strategies.networkFirst(
+      {
+        cacheName : 'sketch',
+        plugins: [
+          new workbox.expiration.Plugin({
+            maxAgeSeconds: 0,
+          }),
+        ],
+      }
+    )
+  );
+
+  workbox.routing.registerRoute(
+    new RegExp('index.html'),
+    workbox.strategies.networkFirst(
+      {
+        cacheName : 'index',
+        plugins: [
+          new workbox.expiration.Plugin({
+            maxAgeSeconds: 0,
+          }),
+        ],
+      }
+    )
+  );
 
   workbox.precaching.precacheAndRoute([]);
-
-  workbox.precaching.precacheAndRoute([
-    {
-        "url": "sw.js",
-    },
-  ])
 } 
-else 
-{
-  console.log('Boo! Workbox didn\'t load');
-}
