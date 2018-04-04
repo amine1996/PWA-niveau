@@ -4,6 +4,9 @@ var lastOrientation;
 //Last Y rotation
 var lastRotationY;
 
+//Last X rotation
+var lastRotationX;
+
 function setup() 
 {
   createCanvas(screen.width, screen.height);
@@ -15,32 +18,47 @@ function setup()
   angleMode(DEGREES);
 
   lastOrientation = deviceOrientation;
-  lastRotationY = 0;
+  lastRotationY = 0; 
+  lastRotationX = 0;
+
+  textSize(20);
 }
 
 function draw() 
 {
   background(255,255,255);
 
-  if(rotationY != null)
+  //A plat
+  if(rotationY != null && rotationX != null)
   {
-    fill(0,255,0);
-    ellipse(screen.width/2, screen.height*map(cos(lastRotationY),-1,1,0,1), 80, 80);
+    fill(0,0,0);
+    text("RotationX : "+rotationX,50,40);
+    text("RotationY : "+rotationY,50,70);
+    text("RotationZ : "+rotationZ,50,100);
 
-    fill(255,0,0);
-    ellipse(screen.width*map(cos(lastRotationY+90),-1,1,0,1),screen.height/2, 80, 80);
+    //Vertical bubble
+    fill(0,255,128);
+    ellipse(screen.width/2, screen.height*map(cos(lastRotationX),-1,1,0.05,0.95), 80, 80);
 
-    //Not working, looking for a fluid movement and also faster as the difference is bigger
-    deltaRotation = abs(rotationY - lastRotationY) > 0.5 ? 0.5 : abs(rotationY - lastRotationY);
-    lastRotationY = rotationY - lastRotationY > 0 ? lastRotationY+deltaRotation : lastRotationY-deltaRotation;
+    //Horizontal bubble
+    fill(128,255,0);
+    ellipse(screen.width*map(cos(lastRotationY),-1,1,0.05,0.95),screen.height/2, 80, 80);
+
+    //Not working properly
+    let deltaRotationY = rotationY - lastRotationY;
+    lastRotationY -= map(deltaRotationY,0,180,-5,5);
+
+    //Not working properly
+    let deltaRotationX = rotationX - lastRotationX;
+    lastRotationX -= map(deltaRotationX,0,180,-5,5);
   }
   else
   {
     text("No rotation found",10,30);
   }
 }
-//Not used for the moment
-function resizeOnOrientationChange() 
+//Not used for the moment-
+function resizeOnOrientationChange()
 {
   if(lastOrientation != deviceOrientation)
   {
