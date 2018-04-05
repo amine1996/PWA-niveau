@@ -1,10 +1,20 @@
 //Last Y rotation
 var horizontalBubbleAngle;
+const radHorizontalBubble = 80;
+var bubbleHorizontalImg;
 
 //Last X rotation
 var verticalBubbleAngle;
+const radVerticalBubble = 80;
+var bubbleVerticalImg;
 
 const DEBUG = true;
+
+function preload()
+{
+  bubbleHorizontalImg = loadImage("/images/bubble.png");
+  bubbleVerticalImg = loadImage("/images/bubble.png");
+}
 
 function setup() 
 {
@@ -17,6 +27,9 @@ function setup()
   verticalBubbleAngle = 0;
 
   textSize(20);
+
+  bubbleHorizontalImg.resize(radHorizontalBubble,radHorizontalBubble);
+  bubbleVerticalImg.resize(radVerticalBubble,radVerticalBubble);
 }
 
 function draw() 
@@ -27,22 +40,21 @@ function draw()
   if(rotationY != null && rotationX != null)
   {
     //Horizontal bubble
-    //Not working properly
     let deltaRotationY = sin(rotationY) - sin(horizontalBubbleAngle);
     horizontalBubbleAngle += map(deltaRotationY,-2,2,-5,5)
 
-    fill(0,0,255);
-    ellipse(screen.width*map(cos(horizontalBubbleAngle+90),-1,1,0.05,0.95),screen.height/2, 80, 80);
 
+    fill(255,255,0);
+    //ellipse(screen.width*map(cos(horizontalBubbleAngle+90),-1,1,0.10,0.9),screen.height-(screen.height*0.25 / 2)-radHorizontalBubble, radHorizontalBubble, radHorizontalBubble);
+    image(bubbleHorizontalImg,screen.width*map(cos(horizontalBubbleAngle+90),-1,1,0.10,0.9),screen.height-(screen.height*0.25 / 2)-radHorizontalBubble);
     //Vertical bubble
-    //OK
     let deltaRotationX = sin(rotationX) - sin(verticalBubbleAngle);
     verticalBubbleAngle += map(deltaRotationX,-2,2,-5,5)
 
-    fill(255,0,0);
-    ellipse(screen.width/2, screen.height*map(cos(verticalBubbleAngle+90),-1,1,0.05,0.95), 80, 80);
+    fill(255,255,0);
+    //ellipse(screen.width-(screen.width*0.25/2)-radVerticalBubble, (screen.height*0.75-radHorizontalBubble)*map(cos(verticalBubbleAngle+90),-1,1,0.10,0.90), radVerticalBubble, radVerticalBubble);
+    image(bubbleVerticalImg,screen.width-(screen.width*0.25/2)-radVerticalBubble, (screen.height*0.75-radHorizontalBubble)*map(cos(verticalBubbleAngle+90),-1,1,0.10,0.90))
 
-        
     if(DEBUG)
     {
       fill(0,0,0);
