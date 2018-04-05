@@ -7,6 +7,8 @@ var lastRotationY;
 //Last X rotation
 var lastRotationX;
 
+const DEBUG = true;
+
 function setup() 
 {
   createCanvas(screen.width, screen.height);
@@ -31,26 +33,36 @@ function draw()
   //A plat
   if(rotationY != null && rotationX != null)
   {
-    fill(0,0,0);
-    text("RotationX : "+rotationX,50,40);
-    text("RotationY : "+rotationY,50,70);
-    text("RotationZ : "+rotationZ,50,100);
+    //Horizontal bubble
+    //Not working properly
+    let deltaRotationY = cos(rotationY) - cos(lastRotationY);
+    if(rotationY < 0)
+      lastRotationY += map(deltaRotationY,-2,2,-5,5)
+    else
+      lastRotationY -= map(deltaRotationY,-2,2,-5,5)
+
+    fill(0,0,255);
+    ellipse(screen.width*map(cos(lastRotationY+90),-1,1,0.05,0.95),screen.height/2, 80, 80);
 
     //Vertical bubble
-    fill(0,255,128);
-    ellipse(screen.width/2, screen.height*map(cos(lastRotationX),-1,1,0.05,0.95), 80, 80);
+    //OK
+    let deltaRotationX = sin(rotationX) - sin(lastRotationX);
+    lastRotationX += map(deltaRotationX,-2,2,-5,5)
 
-    //Horizontal bubble
-    fill(128,255,0);
-    ellipse(screen.width*map(cos(lastRotationY),-1,1,0.05,0.95),screen.height/2, 80, 80);
+    fill(255,0,0);
+    ellipse(screen.width/2, screen.height*map(cos(lastRotationX+90),-1,1,0.05,0.95), 80, 80);
 
-    //Not working properly
-    let deltaRotationY = rotationY - lastRotationY;
-    lastRotationY -= map(deltaRotationY,0,180,-5,5);
+        
+    if(DEBUG)
+    {
+      fill(0,0,0);
+      text("RotationX : "+rotationX,50,40);
+      text("RotationY : "+rotationY,50,70);
+      text("RotationZ : "+rotationZ,50,100);
 
-    //Not working properly
-    let deltaRotationX = rotationX - lastRotationX;
-    lastRotationX -= map(deltaRotationX,0,180,-5,5);
+      text("lastRotationX : "+lastRotationX,50,140);
+      text("lastRotationY : "+lastRotationY,50,170);
+    }
   }
   else
   {
