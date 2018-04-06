@@ -1,7 +1,7 @@
 {
-  "name": "PWA-niveau",
+  "name": "Minimal_Spirit_Level",
   "version": "1.0.0",
-  "description": "PWA-niveau",
+  "description": "Minimal Spirit Level",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
