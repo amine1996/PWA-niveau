@@ -8,3 +8,9 @@
 
 Open your browser and go on localhost:8081
 
+To test online (github pages) :
+
+- Create a repo named : yourusername.github.io
+- Init this repo in your build folder (after running npm build)
+- Push everything on your new repo
+- Go to yourusername.github.io
